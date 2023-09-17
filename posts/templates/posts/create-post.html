@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <link rel="stylesheet" href="{% static 'assets/css/post-create.css' %}">
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="card-title" style="text-align: center;">Создать новый пост</h1>
+            <form action="{% url 'posts:create-post' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ post_form.description.id_for_label }}">Описание:</label>
+                    {{ post_form.description }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ post_form.image.id_for_label }}">Изображение:</label>
+                    {{ post_form.image }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ post_form.video.id_for_label }}">Видео:</label>
+                    {{ post_form.video }}
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="margin-left: 183px;">Создать Пост</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

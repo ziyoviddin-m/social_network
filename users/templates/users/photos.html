@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+
+    <div class="main-wrapper">
+        <div class="profile-banner-large bg-img" data-bg="{% if user.cover %}{{ user.cover.url }}{% else %}{% static 'assets/images/banner/profile-banner.jpg' %} {% endif %}">
+        </div>
+        <div class="profile-menu-area bg-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="profile-picture-box">
+                            <figure class="profile-picture">
+                                <a>
+                                    <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'assets/images/users/default_avatar.jpg' %} {% endif %}" alt="profile picture">
+                                </a>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 offset-lg-1">
+                        <div class="profile-menu-wrapper">
+                            <div class="main-menu-inner header-top-navigation">
+                                <nav>
+                                    <ul class="main-menu">
+                                        <li class="active"><a href="{% url 'users:profile' %}">Профиль</a></li>
+                                        <li><a href="{% url 'users:about' %}">Обо мне</a></li>
+                                        <li><a href="{% url 'users:photos' %}">Фотографии</a></li>
+                                        <li><a href="{% url 'users:friends' %}">Друзья</a></li>
+                                        <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 d-none d-md-block">
+                        <div class="profile-edit-panel">
+                            <a class="edit-btn" href="{% url 'users:edit-profile' user.id %}">РЕДАКТИРОВАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-secondary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="secondary-menu-wrapper secondary-menu-2 bg-white">
+                            <div class="page-title-inner">
+                                <h4 class="page-title">@{{ user.username }}</h4>
+                            </div>
+                            <div class="filter-menu">
+                                <button class="active" data-filter="*"></button>
+                                <button data-filter=".timeline"></button>
+                                <button data-filter=".upload"></button>
+                                <button>Фотографии</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- photo section start -->
+        <div class="photo-section mt-20">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="content-box">
+                            <div class="content-body">
+                                <div class="row mt--30 photo-filter">
+                                    {% for post in posts %}
+                                    {% if post.image %}
+                                    <div class="col-sm-6 col-md-4 folder">
+                                        <div class="photo-group">
+                                            <div class="gallery-toggle">
+                                                <div class="d-none product-thumb-large-view">
+                                                    <img src="{{ post.image.url }}" alt="Photo Gallery">
+                                                </div>
+                                                <div class="gallery-overlay">
+                                                    <img src="{{ post.image.url }}" alt="Photo Gallery">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       
+            
+
+        
+
+{% endblock %}

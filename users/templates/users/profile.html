@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block content %}
+
+<main>
+
+    <div class="main-wrapper">
+        <div class="profile-banner-large bg-img" data-bg="{% if user.cover %}{{ user.cover.url }}{% else %}{% static 'assets/images/banner/profile-banner.jpg' %} {% endif %}">
+        </div>
+        <div class="profile-menu-area bg-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="profile-picture-box">
+                            <figure class="profile-picture">
+                                <a>
+                                    <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'assets/images/users/default_avatar.jpg' %} {% endif %}" alt="profile picture">
+                                </a>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 offset-lg-1">
+                        <div class="profile-menu-wrapper">
+                            <div class="main-menu-inner header-top-navigation">
+                                <nav>
+                                    <ul class="main-menu">
+                                        <li class="active"><a href="{% url 'users:profile' %}">Профиль</a></li>
+                                        <li><a href="{% url 'users:about' %}">Обо мне</a></li>
+                                        <li><a href="{% url 'users:photos' %}">Фотографии</a></li>
+                                        <li><a href="{% url 'users:friends' %}">Друзья</a></li>
+                                        <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 d-none d-md-block">
+                        <div class="profile-edit-panel">
+                            <a class="edit-btn" href="{% url 'users:edit-profile' user.id %}">РЕДАКТИРОВАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 order-2 order-lg-1">
+                    <aside class="widget-area profile-sidebar">
+                        <!-- widget single item start -->
+                        
+                        <div class="card widget-item">
+                            <h4 class="widget-title">{{ user.first_name }} {{ user.last_name }}</h4>
+                            <div class="widget-body">
+                                <div class="about-author">
+                                    <p>{{ user.about|truncatechars:100 }}</p>
+                                    <ul class="author-into-list">
+                                        <li><a href="#"><i class="bi bi-office-bag"></i>{{ user.job }}</a></li>
+                                        <li><a href="#"><i class="bi bi-home"></i>{{ user.city }}</a></li>
+                                        <li><a href="#"><i class="bi bi-location-pointer"></i>{{ user.address }}</a></li>
+                                        <li><a href="#"><i class="bi bi-heart-beat"></i>{{ user.hobbie }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- widget single item end -->
+
+                    
+                    </aside>
+                </div>
+
+                <div class="col-lg-6 order-1 order-lg-2">
+                    <!-- share box start -->
+                    <div class="card card-small">
+                        <div class="share-box-inner">
+                            <!-- profile picture end -->
+                            <div class="profile-thumb">
+                                <a href="#">
+                                    <figure class="profile-thumb-middle">
+                                        <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'assets/images/users/default_avatar.jpg' %} {% endif %}" alt="profile picture">
+                                    </figure>
+                                </a>
+                            </div>
+                            <!-- profile picture end -->
+
+                            <!-- share content box start -->
+                            <div class="share-content-box w-100">
+                                <form class="share-text-box">
+                                    <a href="{% url 'posts:create-post' %}"><textarea name="share" class="share-text-field" aria-disabled="true" placeholder="Скажите что-нибудь" data-toggle="modal" data-target="#textbox" id="email"></textarea></a>
+                                    <a href="{% url 'posts:create-post' %}" class="btn-share" style="color: aliceblue;">поделиться</a>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- share box end -->
+
+                    <!--Post-->
+                    {% for post in posts %}
+                    <div class="card">
+                        <!-- post title start -->
+                        <div class="post-title d-flex align-items-center">
+                            <!-- profile picture end -->
+                            <div class="profile-thumb">
+                                <a href="#">
+                                    <figure class="profile-thumb-middle">
+                                        <img src="{% if user.image %} {{ post.user.image.url }} {% else %} {% static 'assets/images/users/default_avatar.jpg' %} {% endif %}" alt="profile picture">
+                                    </figure>
+                                </a>
+                            </div>
+                            
+                            <!-- profile picture end -->
+
+                            <div class="posted-author">
+                                <h6 class=""><a href="{% url 'users:profile' %}" style="color: black;">@{{ post.user }}</a></h6>
+                                <span class="post-time">{{ post.created|naturaltime }}</span>
+                            </div>
+                            <div class="post-settings-bar">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <div class="post-settings arrow-shape">
+                                    <ul>
+                                        <li><a href="{% url 'posts:delete-post' post.id %}">Удалить пост</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- post title start -->
+                        <div class="post-content">
+                            <p class="post-desc">
+                                {{ post.description }}
+                            </p>
+                            
+                            {% if post.image %}
+                            <div class="post-thumb-gallery">
+                                <figure class="post-thumb img-popup">
+                                    <a href="{{ post.image.url }}">
+                                        <img src="{{ post.image.url }}" alt="post image">
+                                    </a>
+                                </figure>
+                            </div>
+                            {% endif %}
+
+                            {% if post.video %}
+                                <video
+                                    id="my-video"
+                                    class="video-js"
+                                    controls
+                                    preload="auto"
+                                    width="510"
+                                    height="264"
+                                    data-setup="{}"
+                                >
+                                    <source src="{{ post.video.url }}" type="video/mp4" />
+                                </video>
+                                {% endif %}
+
+                            <div class="post-meta">
+                                <form action="{% url 'posts:like_post' post.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="post-meta-like">
+                                        <i class="bi bi-heart-beat"></i>
+                                        
+                                        <span>{{ post.likes.count }}</span>
+                                        <strong>{{ post.likes.countt }}</strong>
+                                      
+                                    </button>
+                                </form>
+                                
+                                <ul class="comment-share-meta">
+                                    <li>
+                                        <button class="post-comment">
+                                            <i class="bi bi-chat-bubble"></i>
+                                        </button>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comments">
+                        <figure style="overflow: scroll; height: 100px;">
+                            
+                            {% for comment in comments %}
+                            
+                            {% if comment.post == post %}
+                            <div class="comment">
+                                <div class="comment-time" style="text-align: right;">{{ comment.created_at|naturaltime }}</div>
+                                <div class="comment-author"></div>{{ comment.user }}: {{ comment.text }}
+                            </div>
+                            {% endif %}
+
+                            {% endfor %}
+                            
+                        </figure>
+                    </div>
+                    
+                    <div class="comment-form" style="display:none;">
+                        <form action="{% url 'posts:create_comment' post.id %}" method="post">
+                            {% csrf_token %}
+                            <textarea name="comment_text" placeholder="Введите ваш комментарий"></textarea>
+                            <input type="submit" value="Сохранить комментарий" style="margin-left: 180px">
+                        </form>
+                    </div>
+                    <br>
+                    {% endfor %}
+                    <!--EndPost-->
+                    
+
+                </div>
+
+                <div class="col-lg-3 order-3">
+                    <aside class="widget-area">
+                        <!-- widget single item start -->
+                        <div class="card widget-item">
+                            <h4 class="widget-title">Недавние уведомления</h4>
+                            <a href="{% url 'users:delete_notifications' %}" style="color: black">Очистить все</a>
+                            <br>
+                            <div class="widget-body">
+                                <ul class="like-page-list-wrapper">
+                                    {% for notification in notifications %}
+                                    <li class="unorder-list">
+                                        <!-- profile picture end -->
+                                        <div class="profile-thumb">
+                                            <a href="#">
+                                                <figure class="profile-thumb-small">
+                                                    <img src="{% if notification.sender.image %} {{ notification.sender.image.url }} {% else %} {% static 'assets/images/users/default_avatar.jpg' %} {% endif %}" alt="profile picture">
+                                                </figure>
+                                            </a>
+                                        </div>
+                                        <!-- profile picture end -->
+                                        {% if notification.is_like == True %}
+                                        <div class="unorder-list-info">
+                                            <h3 class="list-title"><a href="#">@{{ notification.sender }} поставил лайк к вашему посту</a></h3>
+                                            <p class="list-subtitle">{{ notification.created_at|naturaltime }}</p>
+                                        </div>
+                                        {% elif notification.is_like == False %}
+                                        <div class="unorder-list-info">
+                                            <h3 class="list-title"><a href="{% url 'friendship:other_user' notification.sender.id %}">@{{ notification.sender }} оставил комментарий к вашему посту</a></h3>
+                                            <p class="list-subtitle">{{ notification.created_at|naturaltime }}</p>
+                                        </div>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- widget single item end -->
+
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

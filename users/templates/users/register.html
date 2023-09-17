@@ -1,0 +1,128 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}">
+
+    <!-- CSS
+	============================================ -->
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bicon.min.css' %}">
+    <!-- Flat Icon CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/flaticon.css' %}">
+    <!-- audio & video player CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/plyr.css' %}">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick.min.css' %}">
+    <!-- nice-select CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <!-- perfect scrollbar css -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/perfect-scrollbar.css' %}">
+    <!-- light gallery css -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/lightgallery.min.css' %}">
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+</head>
+
+<body class="bg-transparent">
+
+    <main>
+        <div class="main-wrapper pb-0 mb-0">
+            <div class="timeline-wrapper">
+                    {% if form.errors %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center;">
+                        {{ form.errors }}
+                        <button button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                
+                <div class="timeline-page-wrapper" style="margin-top: 25px; margin-left: 490px">
+                    <div class="container-fluid p-0">
+                        <div class="row no-gutters">
+                            <div class="col-lg-6 order-1 order-lg-2 d-flex align-items-center justify-content-center">
+                                <div class="signup-form-wrapper">
+                                    <div class="signup-inner text-center">
+                                        <h3 class="title">Регистрация</h3>
+                                        <form action="#" method="post" class="signup-inner--form">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    {{ form.first_name }}
+                                                </div>
+                                                <div class="col-12">
+                                                    {{ form.last_name }}
+                                                </div>
+                                                <div class="col-12">
+                                                    {{ form.username }}
+                                                </div>
+                                                <div class="col-12">
+                                                    {{ form.email }}
+                                                </div>
+                                                <div class="col-12">
+                                                    {{ form.password1 }}
+                                                </div>
+                                                <div class="col-12">
+                                                    {{ form.password2 }}
+                                                </div>
+                                                <div class="col-12">
+                                                    <button class="submit-btn">Зарегистрироваться</button>
+                                                </div>
+                                            </div>
+                                            <h6 class="terms-condition">Уже есть аккаунт? <a href="{% url 'users:login' %}">Авторизоваться!</a></h6>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS
+============================================ -->
+
+    <!-- Modernizer JS -->
+    <script src="{% static 'assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <!-- jQuery JS -->
+    <script src="{% static 'assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
+    <!-- Popper JS -->
+    <script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+    <!-- Slick Slider JS -->
+    <script src="{% static 'assets/js/plugins/slick.min.js' %}"></script>
+    <!-- nice select JS -->
+    <script src="{% static 'assets/js/plugins/nice-select.min.js' %}"></script>
+    <!-- audio video player JS -->
+    <script src="{% static 'assets/js/plugins/plyr.min.js' %}"></script>
+    <!-- perfect scrollbar js -->
+    <script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <!-- light gallery js -->
+    <script src="{% static 'assets/js/plugins/lightgallery-all.min.js' %}"></script>
+    <!-- image loaded js -->
+    <script src="{% static 'assets/js/plugins/imagesloaded.pkgd.min.js' %}"></script>
+    <!-- isotope filter js -->
+    <script src="{% static 'assets/js/plugins/isotope.pkgd.min.js' %}"></script>
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

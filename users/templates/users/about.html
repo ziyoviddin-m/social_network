@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+
+    <div class="main-wrapper">
+        <div class="profile-banner-large bg-img" data-bg="{% if user.cover %}{{ user.cover.url }}{% else %}{% static 'assets/images/banner/profile-banner.jpg' %} {% endif %}">
+        </div>
+        <div class="profile-menu-area bg-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="profile-picture-box">
+                            <figure class="profile-picture">
+                                <a>
+                                    <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'assets/images/users/default_avatar.jpg' %} {% endif %}" alt="profile picture">
+                                </a>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 offset-lg-1">
+                        <div class="profile-menu-wrapper">
+                            <div class="main-menu-inner header-top-navigation">
+                                <nav>
+                                    <ul class="main-menu">
+                                        <li class="active"><a href="{% url 'users:profile' %}">Профиль</a></li>
+                                        <li><a href="{% url 'users:about' %}">Обо мне</a></li>
+                                        <li><a href="{% url 'users:photos' %}">Фотографии</a></li>
+                                        <li><a href="{% url 'users:friends' %}">Друзья</a></li>
+                                        <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 d-none d-md-block">
+                        <div class="profile-edit-panel">
+                            <a class="edit-btn" href="{% url 'users:edit-profile' user.id %}">РЕДАКТИРОВАТЬ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-secondary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="secondary-menu-wrapper bg-white">
+                            <div class="page-title-inner">
+                                <h4 class="page-title">@{{ user.username }}</h4>
+                            </div>
+                            <div class="main-menu-inner header-top-navigation">
+                                <nav>
+                                    <ul class="main-menu">
+                                        <li><a href="#"><span>github</span> <i class="flaticon-facebook"></i></a></li>
+                                        <li><a href="#"><span>twitter</span> <i class="flaticon-twitter-logo-silhouette"></i></a></li>
+                                        <li><a href="#"><span>google</span> <i class="flaticon-google-plus"></i></a></li>
+                                        <li><a href="#"><span>pinterest</span> <i class="flaticon-pinterest"></i></a></li>
+                                        <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-author-details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card widget-item">
+                            <div class="about-me">
+                                <ul class="nav flex-column about-author-menu">
+                                    <li><a href="#one" data-toggle="tab" class="active">Обо Мне</a></li>
+                                    <li><a href="#two" data-toggle="tab">Работа</a></li>
+                                    <li><a href="#three" data-toggle="tab">Хобби</a></li>
+                                    <li><a href="#four" data-toggle="tab">Возраст</a></li>
+                                    <li><a href="#five" data-toggle="tab">Родной город</a></li>
+                                    <li><a href="#six" data-toggle="tab">Адрес</a></li>
+                                    <li><a href="#seven" data-toggle="tab">Контакты</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="about-description">
+                            <div class="tab-content">
+                                <div class="tab-pane fade active show" id="one">
+                                    <div class="work-zone">
+                                        <div class="author-desc-title d-flex">
+                                            <h6 class="author"><a href="{% url 'users:profile' %}">{{ user.first_name }} {{ user.last_name }}</a></h6>
+                                            <div class="post-settings-bar">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <div class="post-settings arrow-shape">
+                                                    <ul>
+                                                        <li><a href="{% url 'users:edit-profile' user.id %}">Редактировать</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.about }}</p>
+                                         </div>
+                                </div>
+                                <div class="tab-pane fade" id="two">
+                                    <div class="work-zone">
+                                        <div class="author-desc-title d-flex">
+                                            <h6 class="author"><a href="{% url 'users:profile' %}">{{ user.first_name }} {{ user.last_name }}</a></h6>
+                                            <div class="post-settings-bar">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <div class="post-settings arrow-shape">
+                                                    <ul>
+                                                        <li><a href="{% url 'users:edit-profile' user.id %}">Редактировать</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.job }}</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="three">
+                                    <div class="work-zone">
+                                        <div class="author-desc-title d-flex">
+                                            <h6 class="author"><a href="{% url 'users:profile' %}">{{ user.first_name }} {{ user.last_name }}</a></h6>
+                                            <div class="post-settings-bar">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <div class="post-settings arrow-shape">
+                                                    <ul>
+                                                        <li><a href="{% url 'users:edit-profile' user.id %}">Редактировать</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.hobbie }}</p>
+                                     </div>
+                                </div>
+                                <div class="tab-pane fade" id="four">
+                                    <div class="work-zone">
+                                        <div class="author-desc-title d-flex">
+                                            <h6 class="author"><a href="{% url 'users:profile' %}">{{ user.first_name }} {{ user.last_name }}</a></h6>
+                                            <div class="post-settings-bar">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <div class="post-settings arrow-shape">
+                                                    <ul>
+                                                        <li><a href="{% url 'users:edit-profile' user.id %}">Редактировать</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.age }} лет</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="five">
+                                    <div class="work-zone">
+                                        <div class="author-desc-title d-flex">
+                                            <h6 class="author"><a href="{% url 'users:profile' %}">{{ user.first_name }} {{ user.last_name }}</a></h6>
+                                            <div class="post-settings-bar">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <div class="post-settings arrow-shape">
+                                                    <ul>
+                                                        <li><a href="{% url 'users:edit-profile' user.id %}">Редактировать</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.city }}</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="six">
+                                    <div class="work-zone">
+                                        <div class="author-desc-title d-flex">
+                                            <h6 class="author"><a href="{% url 'users:profile' %}">{{ user.first_name }} {{ user.last_name }}</a></h6>
+                                            <div class="post-settings-bar">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <div class="post-settings arrow-shape">
+                                                    <ul>
+                                                        <li><a href="{% url 'users:edit-profile' user.id %}">Редактировать</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.address }}</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="seven">
+                                    <div class="work-zone">
+                                        <div class="author-desc-title d-flex">
+                                            <h6 class="author"><a href="{% url 'users:profile' %}">{{ user.first_name }} {{ user.last_name }}</a></h6>
+                                            <div class="post-settings-bar">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <div class="post-settings arrow-shape">
+                                                    <ul>
+                                                        <li><a href="{% url 'users:edit-profile' user.id %}">Редактировать</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>{{ user.contact }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

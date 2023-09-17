@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <link rel="stylesheet" href="{% static 'assets/css/edit-profile.css' %}">
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="card-title" style="text-align: center;">Редактирование</h1>
+            <form action="{% url 'users:edit-profile' user.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">Имя:</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label }}">Фамилия:</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ post_form.description.id_for_label }}">Имя пользователя:</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.about.id_for_label }}">Краткая информация:</label>
+                    {{ form.about }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.age.id_for_label }}">Лет:</label>
+                    {{ form.age }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.city.id_for_label }}">Родной город:</label>
+                    {{ form.city }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.job.id_for_label }}">Работа:</label>
+                    {{ form.job }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.hobbie.id_for_label }}">Хобби:</label>
+                    {{ form.hobbie }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Адрес эл. почты:</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.address.id_for_label }}">Адрес:</label>
+                    {{ form.address }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.contact.id_for_label }}">Контакты:</label>
+                    {{ form.contact }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.image.id_for_label }}">Аватар:</label>
+                    {{ form.image }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.cover.id_for_label }}">Обложка:</label>
+                    {{ form.cover }}
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="margin-left: 183px;">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
